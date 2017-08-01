@@ -79,14 +79,18 @@ public class AppPreferences extends CordovaPlugin implements OnSharedPreferenceC
 		JSONObject options = new JSONObject();
 		if (args.length() > 0)
 			options = args.optJSONObject (0);
-
+		String packageName=options.optString("packageName",null);
 		String suiteName = options.optString("suiteName", null);
 
 		SharedPreferences sharedPrefs;
+		Context context=cordova.getActivity();
+		if(packageName!=null && packageName !=""){
+			context=context.createPackageContext(packageName,0);
+		}
 		if (suiteName != null && suiteName != "") {
-			sharedPrefs = cordova.getActivity().getSharedPreferences(suiteName, Context.MODE_PRIVATE);
+			sharedPrefs = context.getSharedPreferences(suiteName, Context.MODE_PRIVATE);
 		} else {
-			sharedPrefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity());
+			sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 		}
 
 		if (action.equals ("show")) {

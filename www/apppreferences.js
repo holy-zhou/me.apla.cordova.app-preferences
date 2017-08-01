@@ -350,11 +350,13 @@ AppPreferences.prototype.watch = platform.watch || function (
 
 AppPreferences.prototype.iosSuite =
 AppPreferences.prototype.suite =
-	function (suiteName) {
+	function (suiteName,packageName) {
 
 	var appPrefs = new AppPreferences ({
 		iosSuiteName: suiteName, // deprecated, remove when ios code is ready
 		suiteName: suiteName,
+		iosPackageName:packageName,
+		packageName:packageName,
 	});
 
 	return appPrefs;
